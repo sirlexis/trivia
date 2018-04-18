@@ -4,13 +4,19 @@ namespace Trivia
 {
     public class GameSettings
     {
-        public GameSettings(List<Player> players, Location maxNoPlaces)
+        public GameSettings(Location maxNoPlaces)
         {
-            Players = players;
             MaxNoPlaces = maxNoPlaces;
         }
 
-        public List<Player> Players { get; }
+        public GameSettings(Location numberOfLocations, HashSet<Category> categories)
+        {
+            MaxNoPlaces = numberOfLocations;
+            Categories = categories;
+        }
+
+
         public Location MaxNoPlaces { get; }
+        public HashSet<Category> Categories { get; }
     }
 }

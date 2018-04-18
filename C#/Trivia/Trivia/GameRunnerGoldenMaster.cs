@@ -9,23 +9,19 @@ namespace Trivia
 
         public void Execute(int seed)
         {
-            var gameSettings = new GameSettings(new List<Player>
-                {
-                    new Player("Chet"),
-                    new Player("Pat"),
-                    new Player("Sue")
-                }, Location.Eleven);
-            var game = new Game(gameSettings);
-
-            //aGame.Add("Chet");
-            //aGame.Add("Pat");
-            //aGame.Add("Sue");
+            var gameSettings = new GameSettings(Location.Eleven);
+            var game = new Game(new List<Player>
+            {
+                new Player("Chet"),
+                new Player("Pat"),
+                new Player("Sue")
+            }, gameSettings);
 
             var randomizer = new Random(seed);
 
             do
             {
-                game.roll(randomizer.Next(5) + 1);
+                game.Roll(randomizer.Next(5) + 1);
 
                 if (randomizer.Next(9) == 7)
                 {

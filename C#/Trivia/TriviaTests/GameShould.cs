@@ -33,21 +33,37 @@ namespace TriviaTests
 
         
         [TestCase(Eleven,1,1)]
-        [TestCase(Five,12,0)]
-        [TestCase(Seven,10,1)]
+        [TestCase(Five,12,1)]
+        [TestCase(Seven,10,2)]
         public void AllowLocationToBeConfigurable(Location numberOfLocations, int numberRolled, int expectedLocation)
         {
             var stringWriter = new StringWriter();
             Console.SetOut(stringWriter);
             Console.SetError(stringWriter);
             var player = new Player("Chet");
-            var game = new Game(new GameSettings(new List<Player> {player}, numberOfLocations));
+            var game = new Game(new List<Player> { player }, new GameSettings(numberOfLocations));
 
-            game.roll(numberRolled);
+            game.Roll(numberRolled);
 
             var expectedOutput = stringWriter.ToString();
             Assert.True(expectedOutput.Contains("Chet's new location is " + expectedLocation));
         }
+
+        public void AllowCategoriesToBeConfigurable(Location numberOfLocations, int numberRolled, int expectedLocation)
+        {
+            var stringWriter = new StringWriter();
+            Console.SetOut(stringWriter);
+            Console.SetError(stringWriter);
+            var player = new Player("Chet");
+            var game = new Game(new List<Player> { player }, new GameSettings(numberOfLocations, new HashSet<Category>()));
+
+            game.Roll(numberRolled);
+
+            var expectedOutput = stringWriter.ToString();
+            Assert.True(expectedOutput.Contains("Chet's new location is " + expectedLocation));
+        }
+
+
     }
 
 }

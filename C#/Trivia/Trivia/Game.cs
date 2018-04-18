@@ -8,7 +8,7 @@ namespace Trivia
     public class Game
     {
         private readonly GameSettings _gameSettings;
-        private readonly List<Player> _players = new List<Player>();
+        private readonly List<Player> _players;
 
         private readonly int[] _location = new int[6];
 
@@ -22,11 +22,11 @@ namespace Trivia
 
         private readonly GameQuestions _gameQuestions = new GameQuestions();
 
-        
-        public Game(GameSettings gameSettings)
+
+        public Game(List<Player> players, GameSettings gameSettings)
         {
             _gameSettings = gameSettings;
-            _players = _gameSettings.Players;
+            _players = players;
         }
 
         public static Category GiveCategoryFor(Location playerLocation)
@@ -62,7 +62,7 @@ namespace Trivia
             return true;
         }
 
-        public void roll(int roll)
+        public void Roll(int roll)
         {
             Console.WriteLine(_players[_currentPlayer].Name + " is the current player");
             Console.WriteLine("They have rolled a " + roll);
@@ -74,22 +74,22 @@ namespace Trivia
                     _isGettingOutOfPenaltyBox = true;
 
                     Console.WriteLine(_players[_currentPlayer].Name + " is getting out of the penalty box");
-                    
+
                     MovePlayer(roll);
-                    
+
                     Console.WriteLine(_players[_currentPlayer].Name + "'s new location is " + _location[_currentPlayer]);
                     Console.WriteLine("The category is " + GiveCategoryFor((Location)_location[_currentPlayer]));
 
                     _gameQuestions.AskQuestion(GiveCategoryFor((Location)_location[_currentPlayer]));
                 }
-                
+
                 if (!RolledOdd(roll))
                 {
                     Console.WriteLine(_players[_currentPlayer].Name + " is not getting out of the penalty box");
                     _isGettingOutOfPenaltyBox = false;
                 }
             }
-            
+
             if (!CurrentPlayerInPenaltyBox())
             {
                 MovePlayer(roll);
@@ -108,22 +108,22 @@ namespace Trivia
                 if (_isGettingOutOfPenaltyBox)
                 {
                     Console.WriteLine("Answer was correct!!!!");
-                    
+
                     GiveCoinToCurrentPlayer();
-                    
+
                     Console.WriteLine(_players[_currentPlayer].Name + " now has " + _purses[_currentPlayer] + " Gold Coins.");
 
                     var currentPlayerNoWinner = !CurrentPlayerWinner();
-                    
+
                     SetNextPlayer();
-                    
+
                     ResetPlayerIfLast();
-                    
+
                     return currentPlayerNoWinner;
                 }
 
                 SetNextPlayer();
-                    
+
                 ResetPlayerIfLast();
                 return true;
             }
@@ -133,9 +133,9 @@ namespace Trivia
             Console.WriteLine(_players[_currentPlayer].Name + " now has " + _purses[_currentPlayer] + " Gold Coins.");
 
             var currentPlayerIsNoWinner = !CurrentPlayerWinner();
-                
+
             SetNextPlayer();
-                
+
             ResetPlayerIfLast();
 
             return currentPlayerIsNoWinner;
@@ -148,7 +148,10 @@ namespace Trivia
 
         private void CheckPlayerLocationWithinBoundaries()
         {
-           if (_location[_currentPlayer] > 11) _location[_currentPlayer] = _location[_currentPlayer] - 12;
+            if (_location[_currentPlayer] > (int)_gameSettings.MaxNoPlaces)
+            {
+                _location[_currentPlayer] = _location[_currentPlayer] % (int)_gameSettings.MaxNoPlaces-1;
+            }
 
         }
 
@@ -176,14 +179,14 @@ namespace Trivia
         public bool AnsweredIncorrectly()
         {
             Console.WriteLine("Question was incorrectly answered");
-            
+
             PutCurrentPlayerInPenaltyBox();
             Console.WriteLine(_players[_currentPlayer].Name + " was sent to the penalty box");
 
             SetNextPlayer();
-            
+
             ResetPlayerIfLast();
-            
+
             return true;
         }
 

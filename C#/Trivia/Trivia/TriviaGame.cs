@@ -8,18 +8,18 @@ internal class TriviaGame
 
     public void Execute()
     {
-        var gameSettings = new GameSettings(new List<Player>
+        var gameSettings = new GameSettings(Location.Five);
+        var game = new Game(new List<Player>
         {
             new Player("Chet"),
             new Player("Pat"),
             new Player("Sue")
-        }, Location.Five);
-        var game = new Game(gameSettings);
+        }, gameSettings);
         var rand = new Random();
 
         do
         {
-            game.roll(rand.Next(5) + 1);
+            game.Roll(rand.Next(5) + 1);
 
             if (rand.Next(9) == 7)
             {
