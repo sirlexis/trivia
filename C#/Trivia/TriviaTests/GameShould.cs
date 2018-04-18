@@ -31,19 +31,22 @@ namespace TriviaTests
             Assert.That(categoryForPlayer, Is.EqualTo(expectedCategory));
         }
 
-        //[TestCase(1)]
-        //[TestCase(10)]
-        [TestCase(15)]
-        public void AllowLocationToBeConfigurable(int numberOfLocations)
+        
+        [TestCase(Eleven,1,1)]
+        [TestCase(Five,12,0)]
+        [TestCase(Seven,10,1)]
+        public void AllowLocationToBeConfigurable(Location numberOfLocations, int numberRolled, int expectedLocation)
         {
             var stringWriter = new StringWriter();
             Console.SetOut(stringWriter);
             Console.SetError(stringWriter);
+            var player = new Player("Chet");
+            var game = new Game(new GameSettings(new List<Player> {player}, numberOfLocations));
 
-            var game = new Game(new GameSettings(new List<Player>(), numberOfLocations));
+            game.roll(numberRolled);
 
             var expectedOutput = stringWriter.ToString();
-            Assert.True(expectedOutput.Contains("Number of locations was initialised to " + numberOfLocations));
+            Assert.True(expectedOutput.Contains("Chet's new location is " + expectedLocation));
         }
     }
 

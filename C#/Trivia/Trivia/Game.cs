@@ -7,28 +7,26 @@ namespace Trivia
 {
     public class Game
     {
+        private readonly GameSettings _gameSettings;
         private readonly List<Player> _players = new List<Player>();
 
-        private readonly int[] _location ;
+        private readonly int[] _location = new int[6];
 
         private readonly int[] _purses = new int[6];
 
         private readonly bool[] _inPenaltyBox = new bool[6];
 
-        private int _currentPlayer = 0;
+        private int _currentPlayer;
 
         private bool _isGettingOutOfPenaltyBox;
 
         private readonly GameQuestions _gameQuestions = new GameQuestions();
 
-        public Game()
-        {
-            _location = new int[6];
-        }
+        
         public Game(GameSettings gameSettings)
         {
-            _location = new int[gameSettings.Location];
-            Console.WriteLine("Number of locations was initialised to " + _location.Length);
+            _gameSettings = gameSettings;
+            _players = _gameSettings.Players;
         }
 
         public static Category GiveCategoryFor(Location playerLocation)
@@ -150,7 +148,8 @@ namespace Trivia
 
         private void CheckPlayerLocationWithinBoundaries()
         {
-            if (_location[_currentPlayer] > 11) _location[_currentPlayer] = _location[_currentPlayer] - 12;
+           if (_location[_currentPlayer] > 11) _location[_currentPlayer] = _location[_currentPlayer] - 12;
+
         }
 
         private void MovePlayer(int roll)

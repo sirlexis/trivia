@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Trivia;
 
 internal class TriviaGame
@@ -7,25 +8,26 @@ internal class TriviaGame
 
     public void Execute()
     {
-        var aGame = new Game();
-
-        aGame.Add("Chet");
-        aGame.Add("Pat");
-        aGame.Add("Sue");
-
+        var gameSettings = new GameSettings(new List<Player>
+        {
+            new Player("Chet"),
+            new Player("Pat"),
+            new Player("Sue")
+        }, Location.Five);
+        var game = new Game(gameSettings);
         var rand = new Random();
 
         do
         {
-            aGame.roll(rand.Next(5) + 1);
+            game.roll(rand.Next(5) + 1);
 
             if (rand.Next(9) == 7)
             {
-                _notAWinner = aGame.AnsweredIncorrectly();
+                _notAWinner = game.AnsweredIncorrectly();
             }
             else
             {
-                _notAWinner = aGame.AnsweredCorrectly();
+                _notAWinner = game.AnsweredCorrectly();
             }
         } while (_notAWinner);
     }
