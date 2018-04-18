@@ -29,7 +29,7 @@ namespace TriviaTests
             gameQuestions.AskQuestion(category);
             var actualQuestion = stringWriter.ToString();
 
-            Assert.That(actualQuestion, Is.EqualTo("expectedQuestion\n"));
+            Assert.That(actualQuestion, Is.EqualTo("expectedQuestion" + Environment.NewLine));
         }
 
         [TestCase(Pop)]
@@ -47,7 +47,7 @@ namespace TriviaTests
                 var stringWriter = new StringWriter();
                 Console.SetOut(stringWriter);
                 Console.SetError(stringWriter);
-                var expectedQuestion = category + " Question " + i + "\n";
+                var expectedQuestion = category + " Question " + i + Environment.NewLine;
                 
                 gameQuestions.AskQuestion(category);
                 var question = stringWriter.ToString();
