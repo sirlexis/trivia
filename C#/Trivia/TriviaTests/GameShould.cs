@@ -30,6 +30,13 @@ namespace TriviaTests
             
             Assert.That(categoryForPlayer, Is.EqualTo(expectedCategory));
         }
+
+        [Test]
+        public void AllowLocationToBeConfigurable()
+        {
+            var game = new Game();
+
+        }
     }
 
 }
