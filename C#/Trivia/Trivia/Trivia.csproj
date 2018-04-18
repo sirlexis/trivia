@@ -67,6 +67,8 @@
     <Compile Include="GameQuestions.cs" />
     <Compile Include="GameRunner.cs" />
     <Compile Include="GameRunnerGoldenMaster.cs" />
+    <Compile Include="GameSettings.cs" />
+    <Compile Include="Location.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Players.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

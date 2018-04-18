@@ -6,13 +6,13 @@
         {
             Name = name;
             Purse = 0;
-            Place = 0;
+            Location = 0;
             IsInPenaltyBox = false;
         }
 
         public string Name { get; }
         public int Purse { get; }
-        public int Place { get; }
+        public int Location { get; }
         public bool IsInPenaltyBox { get; }
     }
 }

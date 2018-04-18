@@ -9,7 +9,7 @@ namespace Trivia
     {
         private readonly List<Player> _players = new List<Player>();
 
-        private readonly int[] _location = new int[6];
+        private readonly int[] _location ;
 
         private readonly int[] _purses = new int[6];
 
@@ -20,6 +20,16 @@ namespace Trivia
         private bool _isGettingOutOfPenaltyBox;
 
         private readonly GameQuestions _gameQuestions = new GameQuestions();
+
+        public Game()
+        {
+            _location = new int[6];
+        }
+        public Game(GameSettings gameSettings)
+        {
+            _location = new int[gameSettings.Location];
+            Console.WriteLine("Number of locations was initialised to " + _location.Length);
+        }
 
         public static Category GiveCategoryFor(Location playerLocation)
         {
@@ -42,7 +52,7 @@ namespace Trivia
             return categoryForLocation[playerLocation];
         }
 
-        public bool add(string playerName)
+        public bool Add(string playerName)
         {
             _players.Add(new Player(playerName));
             _location[HowManyPlayers()] = 0;
@@ -197,10 +207,5 @@ namespace Trivia
         {
             return _purses[_currentPlayer] == 6;
         }
-    }
-
-    public enum Location
-    {
-        Zero, One, Two, Three, Four, Five, Six, Seven, Eight, Nine, Ten, Eleven
     }
 }

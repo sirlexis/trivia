@@ -9,9 +9,9 @@ internal class TriviaGame
     {
         var aGame = new Game();
 
-        aGame.add("Chet");
-        aGame.add("Pat");
-        aGame.add("Sue");
+        aGame.Add("Chet");
+        aGame.Add("Pat");
+        aGame.Add("Sue");
 
         var rand = new Random();
 

@@ -10,9 +10,9 @@ namespace Trivia
         {
             var aGame = new Game();
 
-            aGame.add("Chet");
-            aGame.add("Pat");
-            aGame.add("Sue");
+            aGame.Add("Chet");
+            aGame.Add("Pat");
+            aGame.Add("Sue");
 
             var randomizer = new Random(seed);
             
